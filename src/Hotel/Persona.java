@@ -6,9 +6,7 @@ import java.util.Scanner;
 
 public abstract class Persona implements Serializable{
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = -5127211784112841344L;
 	protected String dni;
 	protected String nombre;

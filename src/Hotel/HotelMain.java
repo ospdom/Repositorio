@@ -1,5 +1,6 @@
 package Hotel;
 
+import java.io.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -166,7 +167,7 @@ public class HotelMain {
 									}
 									break;
 								case 3:
-									// Modificar tipo de usuario
+									
 									System.out.print("Introduce el dni del usuario a modificar: ");
 									String dniModificar = scanner.next();
 									boolean encontradoModificar = false;
@@ -189,7 +190,7 @@ public class HotelMain {
 									break;
 
 								case 4:
-									// Eliminar usuario
+									
 									System.out.print("Introduce el DNI del usuario a eliminar: ");
 									String dniEliminar = scanner.next();
 									boolean encontradoParaEliminar = false;
@@ -302,7 +303,13 @@ public class HotelMain {
 									do {
 										Habitaciones habitacionNueva = new Habitaciones();
 										habitacionNueva.leer(scanner, false ); 
-																				
+										
+										for(int h=0;h<aHotel.size();h++) {
+											if(dniUsuario.equalsIgnoreCase(aHotel.get(h).getDni_director())) {
+												habitacionNueva.setId_hotel(aHotel.get(h).getId());
+											}
+										}
+										
 										if (aHabitaciones.contains(habitacionNueva)) {
 											System.out.println("La habitación ya existe");
 										} else {

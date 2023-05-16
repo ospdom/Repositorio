@@ -117,10 +117,6 @@ public class Habitaciones {
 
 		System.out.println("Ingresa los Servicios de la Habitacióin: ");
 		this.servicios = teclado.next();
-
-		System.out.println("Ingresa el id del Hotel: ");
-		this.id_hotel = teclado.nextInt();
-		teclado.nextLine();
 		
 		if (leerOcupado) {
 	        System.out.println("Ingresa el estado de ocupación de la Habitación (Ocupado=true/ Disponible=false): ");

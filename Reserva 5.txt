@@ -1,0 +1,5 @@
+FACTURA
+ID Reserva: 5
+ID Habitación: 7
+DNI del Cliente: 44444444A
+¡Gracias por hacer la reserva!

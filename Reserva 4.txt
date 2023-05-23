@@ -1,0 +1,5 @@
+FACTURA
+ID Reserva: 4
+ID Habitación: 8
+DNI del Cliente: 11224477W
+¡Gracias por hacer la reserva!

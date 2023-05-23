@@ -66,13 +66,13 @@ public class HotelMain {
 				aReservas.add(
 						new Reservas(rs.getInt("id_reserva"), rs.getInt("id_habitacion"), rs.getString("dni_cliente")));
 			}
-			
+
 			rs.close();
-			
+
 			st.close();
-			
+
 		} catch (SQLException e) {
-			
+
 			System.out.println("Error de conexión");
 		}
 
@@ -107,14 +107,18 @@ public class HotelMain {
 			boolean encontrado = false;
 
 			while (!encontrado) {
+				
 				System.out.print("Dni de usuario: ");
 				dniUsuario = scanner.next();
 				System.out.print("Contraseña: ");
 				contrasena = scanner.next();
+				
 				List<Usuario> copiaUsuario = new ArrayList<>(aUsuario);
+				
 				for (Usuario u2 : copiaUsuario) {
 					if (u2.getDni().equals(dniUsuario) && u2.getContraseña().equals(contrasena)) {
 						encontrado = true;
+						
 						String tipoUsuario = "";
 						switch (u2.getTipo()) {
 
@@ -167,7 +171,7 @@ public class HotelMain {
 									}
 									break;
 								case 3:
-									
+
 									System.out.print("Introduce el dni del usuario a modificar: ");
 									String dniModificar = scanner.next();
 									boolean encontradoModificar = false;
@@ -190,7 +194,7 @@ public class HotelMain {
 									break;
 
 								case 4:
-									
+
 									System.out.print("Introduce el DNI del usuario a eliminar: ");
 									String dniEliminar = scanner.next();
 									boolean encontradoParaEliminar = false;
@@ -240,8 +244,8 @@ public class HotelMain {
 										Hotel hotel = aHotel.get(posicion);
 										if (hotel.getId() == idModificar) {
 											encontradoModificarHotel = true;
-											hotel.leer(scanner); 
-																	
+											hotel.leer(scanner);
+
 											System.out.println("El Hotel ha sido modificado");
 											modificadoho = true;
 											break;
@@ -302,14 +306,14 @@ public class HotelMain {
 									System.out.println("--------------------------");
 									do {
 										Habitaciones habitacionNueva = new Habitaciones();
-										habitacionNueva.leer(scanner, false ); 
-										
-										for(int h=0;h<aHotel.size();h++) {
-											if(dniUsuario.equalsIgnoreCase(aHotel.get(h).getDni_director())) {
+										habitacionNueva.leer(scanner, false);
+
+										for (int h = 0; h < aHotel.size(); h++) {
+											if (dniUsuario.equalsIgnoreCase(aHotel.get(h).getDni_director())) {
 												habitacionNueva.setId_hotel(aHotel.get(h).getId());
 											}
 										}
-										
+
 										if (aHabitaciones.contains(habitacionNueva)) {
 											System.out.println("La habitación ya existe");
 										} else {
@@ -456,63 +460,84 @@ public class HotelMain {
 								int opcionEmpleado = scanner.nextInt();
 								switch (opcionEmpleado) {
 								case 1:
-								    int parar2 = 1;
-								    // Mostrar lista de habitaciones disponibles
-								    System.out.println("Lista de habitaciones disponibles para reservar:");
-								    for (Habitaciones habitacion : aHabitaciones) {
-								        if (!habitacion.isOcupado()) {
-								            habitacion.print();
-								        }
-								    }
-								    System.out.println("Añadir Reserva: ");
-								    System.out.println("--------------------------");
-								    do {
-								        System.out.print("Introduce el ID de la habitación para pasar a Ocupado: ");
-								        int idHabitacion = scanner.nextInt();
-								        
-								        // Buscar la habitación por su ID
-								        Habitaciones habitacionSeleccionada = null;
-								        for (Habitaciones habitacion : aHabitaciones) {
-								            if (habitacion.getId() == idHabitacion) {
-								                habitacionSeleccionada = habitacion;
-								                break;
-								            }
-								        }
-								        
-								        if (habitacionSeleccionada == null) {
-								            System.out.println("Habitación no encontrada");
-								            continue;
-								        }
-								        
-								        if (habitacionSeleccionada.isOcupado()) {
-								            System.out.println("La habitación ya está ocupada");
-								            continue;
-								        }
-								        
-								        // Cambiar estado de la habitación a ocupado
-								        habitacionSeleccionada.setOcupado(true);
-								        modificadoha = true;
-								        System.out.println("La habitación ha pasado a estado: Ocupado");
-								        
-								        // Crear la reserva
-								        Reservas nuevaReserva = new Reservas();
-								        nuevaReserva.leer(scanner);
-								        
-								        if (aReservas.contains(nuevaReserva)) {
-								            System.out.println("La reserva ya existe");
-								        } else {
-								            // Agregar nueva reserva
-								            aReservas.add(nuevaReserva);
-								            System.out.println("La reserva ha sido añadida correctamente");
-								            modificador = true;
-								        }
-								        
-								        System.out.println("Pulsa 0 para parar y 1 para continuar añadiendo");
-								        parar2 = scanner.nextInt();
-								    } while (parar2 != 0);
-								    break;
+									int parar2 = 1;
+									// Mostrar lista de habitaciones disponibles
+									System.out.println("Lista de habitaciones disponibles para reservar:");
+									for (Habitaciones habitacion : aHabitaciones) {
+										if (!habitacion.isOcupado()) {
+											habitacion.print();
+										}
+									}
+									System.out.println("Añadir Reserva: ");
+									System.out.println("--------------------------");
+									do {
+										System.out.print("Introduce el ID de la habitación para pasar a Ocupado: ");
+										int idHabitacion = scanner.nextInt();
 
-									
+										// Buscar la habitación por su ID
+										Habitaciones habitacionSeleccionada = null;
+										for (Habitaciones habitacion : aHabitaciones) {
+											if (habitacion.getId() == idHabitacion) {
+												habitacionSeleccionada = habitacion;
+												break;
+											}
+										}
+
+										if (habitacionSeleccionada == null) {
+											System.out.println("Habitación no encontrada");
+											break;
+										}
+
+										if (habitacionSeleccionada.isOcupado()) {
+											System.out.println("La habitación ya está ocupada");
+											break;
+										}
+
+										// Cambiar estado de la habitación a ocupado
+										habitacionSeleccionada.setOcupado(true);
+										modificadoha = true;
+										System.out.println("La habitación ha pasado a estado: Ocupado");
+
+										// Crear la reserva
+										Reservas nuevaReserva = new Reservas();
+										for (posicion = 0; posicion < aCliente.size(); posicion++) {
+											aCliente.get(posicion).print();
+										}
+
+										boolean dniencontrado = false;
+
+										while (!dniencontrado) {
+											nuevaReserva.leer(scanner);
+
+											for (int c = 0; c < aCliente.size(); c++) {
+												if (nuevaReserva.getDni_cliente()
+														.equalsIgnoreCase(aCliente.get(c).getDni())) {
+													dniencontrado = true;
+												}
+											}
+
+											if (!dniencontrado) {
+												System.out.println("No existe ese cliente");
+												dniencontrado = false;
+											} else {
+												dniencontrado = true;
+											}
+										}
+										if (aReservas.contains(nuevaReserva)) {
+											System.out.println("La reserva ya existe");
+										} else {
+											// Agregar nueva reserva
+											aReservas.add(nuevaReserva);
+											System.out.println("La reserva ha sido añadida correctamente");
+											modificador = true;
+											guardarReservaEnArchivo(nuevaReserva);
+										}
+
+										System.out.println("Pulsa 0 para parar y 1 para continuar añadiendo");
+										parar2 = scanner.nextInt();
+									} while (parar2 != 0);
+									break;
+
 								case 2:
 									for (posicion = 0; posicion < aReservas.size(); posicion++) {
 										aReservas.get(posicion).print();
@@ -527,6 +552,7 @@ public class HotelMain {
 										Reservas reserva = aReservas.get(posicion);
 										if (reserva.getId_reserva() == idModificar) {
 											ModificarReserva = true;
+
 											reserva.leer(scanner); // Se solicita el estado de ocupación de la
 																	// habitación
 											System.out.println("La reserva ha sido modificada");
@@ -539,32 +565,34 @@ public class HotelMain {
 									}
 									break;
 								case 4:
-								    System.out.print("Introduce el ID de la reserva a eliminar: ");
-								    int idEliminar = scanner.nextInt();
-								    boolean reservaEliminar = false;
-								    for (int posicion1 = 0; posicion1 < aReservas.size(); posicion1++) {
-								        Reservas reserva = aReservas.get(posicion1);
-								        if (reserva.getId_reserva() == idEliminar) {
-								            reservaEliminar = true;
-								            // Buscamos la habitación correspondiente a la reserva eliminada
-								            for (Habitaciones habitacion : aHabitaciones) {
-								                if (habitacion.getId() == reserva.getId_habitacion()) {
-								                    habitacion.setOcupado(false);
-								                    System.out.println("La habitación ha pasado a estado: Disponible");
-								                    modificadoha = true;
-								                    break;
-								                }
-								            }
-								            aReservas.remove(posicion1);
-								            System.out.println("La reserva ha sido eliminada");
-								            modificador = true;
-								            break;
-								        }
-								    }
-								    if (!reservaEliminar) {
-								        System.out.println("Reserva no encontrada");
-								    }
-								    break;
+									System.out.print("Introduce el ID de la reserva a eliminar: ");
+									int idEliminar = scanner.nextInt();
+									boolean reservaEliminar = false;
+									
+									for (int posicion1 = 0; posicion1 < aReservas.size(); posicion1++) {
+										Reservas reserva = aReservas.get(posicion1);
+										
+										if (reserva.getId_reserva() == idEliminar) {
+											reservaEliminar = true;
+											// Buscamos la habitación correspondiente a la reserva eliminada
+											for (Habitaciones habitacion : aHabitaciones) {
+												if (habitacion.getId() == reserva.getId_habitacion()) {
+													habitacion.setOcupado(false);
+													System.out.println("La habitación ha pasado a estado: Disponible");
+													modificadoha = true;
+													break;
+												}
+											}
+											aReservas.remove(posicion1);
+											System.out.println("La reserva ha sido eliminada");
+											modificador = true;
+											break;
+										}
+									}
+									if (!reservaEliminar) {
+										System.out.println("Reserva no encontrada");
+									}
+									break;
 								case 5:
 									System.out.println("¡Hasta pronto!");
 									seguir2 = false;
@@ -587,31 +615,30 @@ public class HotelMain {
 		}
 		scanner.close();
 		if (modificadou) {
-		    try {
-		        FileOutputStream fos = new FileOutputStream("users.dat", false);
-		        ObjectOutputStream oos = new ObjectOutputStream(fos);
+			try {
+				FileOutputStream fos = new FileOutputStream("users.dat", false);
+				ObjectOutputStream oos = new ObjectOutputStream(fos);
 
-		        oos.close();
-		        fos.close();
+				oos.close();
+				fos.close();
 
-		        fos = new FileOutputStream("users.dat");
-		        oos = new ObjectOutputStream(fos);
+				fos = new FileOutputStream("users.dat");
+				oos = new ObjectOutputStream(fos);
 
-		        for (int i = 0; i < aUsuario.size(); i++) {
-		            Usuario u2 = aUsuario.get(i);
-		            oos.writeObject(u2);
-		        }
+				for (int i = 0; i < aUsuario.size(); i++) {
+					Usuario u2 = aUsuario.get(i);
+					oos.writeObject(u2);
+				}
 
-		        oos.close();
-		        fos.close();
-		        System.out.println("La información del fichero ha sido actualizada");
-		    } catch (FileNotFoundException e1) {
-		        e1.printStackTrace();
-		    } catch (IOException e1) {
-		        e1.printStackTrace();
-		    }
+				oos.close();
+				fos.close();
+				System.out.println("La información del fichero ha sido actualizada");
+			} catch (FileNotFoundException e1) {
+				e1.printStackTrace();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
 		}
-
 
 		if (modificadoho) {
 			try {
@@ -727,6 +754,21 @@ public class HotelMain {
 			} catch (SQLException e) {
 				System.out.println("Error de conexion");
 			}
+		}
+	}
+
+	private static void guardarReservaEnArchivo(Reservas reserva) {
+		String nombreArchivo = "Reserva " + reserva.getId_reserva() + ".txt";
+		try (FileWriter fw = new FileWriter(nombreArchivo)) {
+			fw.write("FACTURA" + "\n");
+			fw.write("ID Reserva: " + reserva.getId_reserva() + "\n");
+			fw.write("ID Habitación: " + reserva.getId_habitacion() + "\n");
+			fw.write("DNI del Cliente: " + reserva.getDni_cliente() + "\n");
+			fw.write("¡Gracias por hacer la reserva!");
+
+			System.out.println("Reserva guardada correctamente en el archivo \"" + nombreArchivo + "\".");
+		} catch (IOException e) {
+			System.out.println("Error al guardar el archivo: " + e.getMessage());
 		}
 	}
 }

@@ -46,7 +46,7 @@ public class HotelMain {
 			Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost/hoteles", "root", "");
 			System.out.println("Conexión Correcta.");
 			Statement st = conexion.createStatement();
-			rs = st.executeQuery("SELECT * FROM hoteles.hotel");
+			rs = st.executeQuery("SELECT * FROM hoteles.hotel;");
 			while (rs.next()) {
 				int idHotel = rs.getInt("id");
 				aHotel.add(new Hotel(rs.getInt("id"), rs.getString("nombre"), rs.getString("ciudad"),

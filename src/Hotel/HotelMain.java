@@ -107,9 +107,12 @@ public class HotelMain {
 			boolean encontrado = false;
 
 			while (!encontrado) {
-				
-				System.out.print("Dni de usuario: ");
-				dniUsuario = scanner.next();
+		        System.out.print("DNI de usuario: ");
+		        dniUsuario = scanner.next();
+		        if (dniUsuario.length() != 9) {
+		            System.out.println("El DNI debe tener exactamente 9 dígitos. Inténtalo de nuevo.");
+		            continue; // Vuelve a solicitar el DNI
+		        }
 				System.out.print("Contraseña: ");
 				contrasena = scanner.next();
 				

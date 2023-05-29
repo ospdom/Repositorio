@@ -13,19 +13,19 @@ public abstract class Persona implements Serializable{
 	protected String contraseña;
 	
 	public Persona() {
-		super();
+		
 		
 	}
 	
 	public Persona(Persona p) {
-		super();
+		
 		this.dni = p.dni;
 		this.nombre = p.nombre;
 		this.contraseña = p.contraseña;
 		
 	}
 	public Persona(String dni, String nombre, String contraseña) {
-		super();
+		
 		this.dni = dni;
 		this.nombre = nombre;
 		this.contraseña = contraseña;
